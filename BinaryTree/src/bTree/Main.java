@@ -23,10 +23,11 @@ public class Main {
         btree.add(7);
         btree.add(7);
         btree.add(9);
-        btree.remove(8);
+        
         btree.preOrder();
         btree.inOrder();
         btree.posOrder();
+        btree.remove(9);
         btree.fill(btree, 5, 0, 10);
         System.out.println(btree);
         btree.printLevel();

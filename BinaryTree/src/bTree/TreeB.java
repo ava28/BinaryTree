@@ -1,6 +1,7 @@
 package bTree;
 
 import Excepciones.IsEmptyException;
+
 import Node.Node;
 import java.util.stream.Stream;
 import tree.Tree;
@@ -8,9 +9,7 @@ import tree.Tree;
 public class TreeB<T extends Comparable<T>> implements Tree<T> {
 
     private Node<T> root;
-    int height;
-    private int nodeCount = 0;
-            
+    int nodecount=0;
     public TreeB(T value) {
         this.root = new Node<>(value);
         this.root.setCont(0L);
@@ -22,6 +21,8 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
         this.root.setCont(0L);
         this.root.setLevel(0L);
     }
+
+    
     @Override
     public boolean add(T value) {
         if (value == null) {
@@ -29,15 +30,12 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
         } else {
             if (root.getValue() == null) {
                 root.setValue(value);
-                
                 return true;
-                
             } else {
                 if (add(root, value, root.getLevel()) != null) {
                     return true;
                 } else {
                     return false;
-                    
                 }
             }
         }
@@ -55,16 +53,17 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
                     root.setCont(root.getCont() + 1);
                     break;
                 case 1:
-                    root.setLeft(add(root.getLeft(), value, ++lvl));
+                    root.setBack(add(root.getBack(), value, ++lvl));
                     break;
                 default:
-                    root.setRight(add(root.getRight(), value, ++lvl));
+                    root.setNext(add(root.getNext(), value, ++lvl));
                     break;
             }
         }
         return root;
     }
     private long count;
+
     @Override
     public long beetwen(T start, T end) throws IsEmptyException {
         count = -1l;
@@ -77,7 +76,7 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
             return;
         }
         if (node.getValue().compareTo(x) == 1) {
-            beetwen(node.getLeft(), x, y);
+            beetwen(node.getBack(), x, y);
         }
         if ((node.getValue().compareTo(x) == 0 || node.getValue().compareTo(x) == 1) && (node.getValue().compareTo(y) == 0 || node.getValue().compareTo(y) == -1)) {
             if (node.getCont() > 0) {
@@ -89,32 +88,59 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
             }
         }
         if (node.getValue().compareTo(y) == -1) {
-            beetwen(node.getRight(), x, y);
+            beetwen(node.getNext(), x, y);
         }
     }
+
+    /**
+     *
+     * @return Retorna el valor mas grande.
+     * @throws IsEmptyException
+     */
     @Override
     public T bigger() throws IsEmptyException {
         return bigger(root);
     }
+
+    /**
+     *
+     * @param node Recive el arbol.
+     * @return
+     */
     private T bigger(Node<T> node) {
-        return node.getRight()== null ? node.getValue() : bigger(node.getRight());
+        return node.getNext() == null ? node.getValue() : bigger(node.getNext());
     }
 
     private int altura = 0;
+
+    /**
+     *
+     * @return Retorna la altura del arbol.
+     * @throws IsEmptyException
+     */
     @Override
     public int height() throws IsEmptyException {
         heigth(root, 1);
         return altura;
     }
+
+    /**
+     * @param reco Arbol.
+     * @param nivel Empieza en 1.
+     */
     private void heigth(Node reco, int nivel) {
         if (reco != null) {
-            heigth(reco.getLeft(), nivel + 1);
+            heigth(reco.getBack(), nivel + 1);
             if (nivel > altura) {
                 altura = nivel;
             }
-            heigth(reco.getRight(), nivel + 1);
+            heigth(reco.getNext(), nivel + 1);
         }
     }
+
+    /**
+     * @throws IsEmptyException
+     */
     @Override
     public void inOrder() throws IsEmptyException {
         System.out.println("\nIn-Order:");
@@ -123,17 +149,25 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
 
     private void inOrder(Node<T> root) {
         if (root != null) {
-            inOrder(root.getLeft());
+            inOrder(root.getBack());
             System.out.print(root.getValue() + "{" + root.getLevel() + "," + root.getCont() + "}, ");
-            inOrder(root.getRight());
+            inOrder(root.getNext());
         }
     }
+
+    /**
+     * @throws IsEmptyException
+     */
     @Override
     public void isEmpty() throws IsEmptyException {
         if (root == null) {
             throw new IsEmptyException("Esmpty tree.");
         }
     }
+
+    /**
+     * @throws IsEmptyException
+     */
     @Override
     public void posOrder() throws IsEmptyException {
         System.out.println("\nPos-Order:");
@@ -142,23 +176,30 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
 
     private void posOrder(Node<T> root) {
         if (root != null) {
-            posOrder(root.getLeft());
-            posOrder(root.getRight());
+            posOrder(root.getBack());
+            posOrder(root.getNext());
             System.out.print(root.getValue() + "{" + root.getLevel() + "," + root.getCont() + "}, ");
         }
     }
+
+    /**
+     * @throws IsEmptyException
+     */
     @Override
     public void preOrder() throws IsEmptyException {
         System.out.println("\nPre-Order:");
         preOrder(root);
     }
+
     private void preOrder(Node<T> root) {
         if (root != null) {
+            nodecount++;
             System.out.print(root.getValue() + "{" + root.getLevel() + "," + root.getCont() + "}, ");
-            preOrder(root.getLeft());
-            preOrder(root.getRight());
+            preOrder(root.getBack());
+            preOrder(root.getNext());
         }
     }
+    
     @Override
     public boolean remove(T value) throws IsEmptyException {
         Node<T> tmp;
@@ -174,6 +215,7 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
         }
         return false;
     }
+
     private boolean remove(Node<T> node) throws IsEmptyException {
         if (node.getCont() > 0) {
             node.setCont(node.getCont() - 1);
@@ -183,44 +225,44 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
         Node<T> father = hasFather(node, root, null);
         try {
             if (father == null) {
-                if (root.getRight()!= null) {
-                    Node<T> minor = minor(root.getRight());
-                    minor.setLeft(root.getLeft());
-                    root = root.getRight();
+                if (root.getNext() != null) {
+                    Node<T> minor = minor(root.getNext());
+                    minor.setBack(root.getBack());
+                    root = root.getNext();
                 } else {
-                    root = root.getLeft();
+                    root = root.getBack();
                 }
                 System.gc();
                 return true;
             }
-            if (node.getLeft()== null && node.getRight()== null) { 
+            if (node.getBack() == null && node.getNext() == null) { 
                 if (node.getValue().compareTo(father.getValue()) > 0) {
-                    father.setRight(null);
+                    father.setNext(null);
                 } else {
-                    father.setLeft(null);
+                    father.setBack(null);
                 }
                 return true;
             }
-            if (node.getRight()!= null && node.getLeft()== null) {
+            if (node.getNext() != null && node.getBack() == null) {
                 if (node.getValue().compareTo(father.getValue()) > 0) {
-                    father.setRight(node.getRight());
+                    father.setNext(node.getNext());
                 } else {
-                    father.setLeft(node.getRight());
+                    father.setBack(node.getNext());
                 }
                 return true;
             }
-            if (node.getRight()== null && node.getLeft()!= null) {
+            if (node.getNext() == null && node.getBack() != null) {
                 if (node.getValue().compareTo(father.getValue()) > 0) {
-                    father.setRight(node.getLeft());
+                    father.setNext(node.getBack());
                 } else {
-                    father.setLeft(node.getLeft());
+                    father.setBack(node.getBack());
                 }
                 return true;
             } else {
-                Node<T> minor = minor(node.getRight());
-                minor.setLeft(node.getLeft());
-                father.setLeft(minor);
-                father.setRight(null);
+                Node<T> minor = minor(node.getNext());
+                minor.setBack(node.getBack());
+                father.setBack(minor);
+                father.setNext(null);
                 System.gc();
                 return true;
             }
@@ -231,14 +273,15 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
         }
         return false;
     }
+
     private Node<T> hasFather(Node<T> value, Node<T> root, Node<T> father) {
         if (value.getValue().equals(root.getValue())) {
             return father;
         }
         if (value.getValue().compareTo(root.getValue()) <= -1) {
-            return hasFather(value, root.getRight(), root);
+            return hasFather(value, root.getBack(), root);
         } else {
-            return hasFather(value, root.getLeft(), root);
+            return hasFather(value, root.getNext(), root);
         }
     }
 
@@ -246,6 +289,7 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
     public Node<T> search(T value) throws IsEmptyException {
         return search(value, root);
     }
+
     private Node<T> search(T value, Node<T> root) {
         if (root == null) {
             return null;
@@ -253,34 +297,39 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
             if (root.getValue().equals(value)) {
                 return root;
             } else {
-                return value.compareTo(root.getValue()) < 0 ? search(value, root.getLeft()) : search(value, root.getRight());
+                return value.compareTo(root.getValue()) < 0 ? search(value, root.getBack()) : search(value, root.getNext());
             }
         }
     }
+
     @Override
     public void lvlUpdate(Node<T> root, int nivel) {
         if (root != null) {
             root.setLevel(nivel);
-            heigth(root.getLeft(), nivel + 1);
+            heigth(root.getBack(), nivel + 1);
             root.setLevel(nivel);
-            heigth(root.getRight(), nivel + 1);
+            heigth(root.getNext(), nivel + 1);
 
         }
     }
+
+
     @Override
     public T minor() throws IsEmptyException {
         return minor(root).getValue();
     }
+
+    
     @Override
     public Node<T> minor(Node<T> node) throws IsEmptyException {
-        if (node.getLeft()== null) {
+        if (node.getBack() == null) {
             
             return node;
         } else {
-            
-            return minor(node.getLeft());
+            return minor(node.getBack());
         }
     }
+
     public void printLevel() throws IsEmptyException {
         long h = height();
         for (int i = 1; i <= h; i++) {
@@ -290,19 +339,24 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
             System.out.println();
         }
     }
+
+    
     private void printLevel(Node<T> node, int level) {
         if (node == null) {
+            
             return;
         }
         if (level == 1) {
-            nodeCount++;
             System.out.print(node.getValue() + " ");
         } else if (level > 1) {
-            printLevel(node.getLeft(), level - 1);
-            printLevel(node.getRight(), level - 1);
+            printLevel(node.getBack(), level - 1);
+            printLevel(node.getNext(), level - 1);
         }
     }
-
+    
+    public int width() {
+        return this.nodecount;
+    }
     public void fill(TreeB b, int x, int n, int m) {
         for (int i = 0; i < x; i++) {
             b.add((int) Math.abs(Math.floor(Math.random() * (n - m + 1) + m)));
@@ -313,9 +367,4 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
     public String toString() {
         return TreePrinter.getTreeDisplay(root);
     }
-    
-    public int width() {
-        return this.nodeCount;
-    }
-    
 }

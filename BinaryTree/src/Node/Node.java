@@ -3,38 +3,35 @@ package Node;
 public class Node<T extends Comparable<T>> {
 
     private T value;
-    private Node<T> right;
-    private Node<T> left;
+    private Node<T> next;
+    private Node<T> back;
     private long cont;
     private long level;
-    private int height;
-    private int bf;
-    private int count = 0;
+    
 
-
-    public Node<T> getLeft() {
-        return left;
+    public Node<T> getBack() {
+        return back;
     }
 
-    public void setLeft(Node<T> left) {
-        this.left = left;
+    public void setBack(Node<T> back) {
+        this.back = back;
     }
 
-    public Node(T value, Node<T> right, Node<T> left) {
+    public Node(T value, Node<T> next, Node<T> back) {
         this.value = value;
-        this.right = right;
-        this.left = left;
+        this.next = next;
+        this.back = back;
     }
 
-    public Node(T value, Node<T> right) {
+    public Node(T value, Node<T> next) {
         this.value = value;
-        this.right = right;
+        this.next = next;
     }
 
     public Node() {
         this.value = null;
-        this.right = null;
-        this.left = null;
+        this.next = null;
+        this.back = null;
     }
 
     public Node(T value) {
@@ -50,12 +47,12 @@ public class Node<T extends Comparable<T>> {
         this.value = value;
     }
 
-    public Node<T> getRight() {
-        return right;
+    public Node<T> getNext() {
+        return next;
     }
 
-    public void setRight(Node<T> next) {
-        this.right = next;
+    public void setNext(Node<T> next) {
+        this.next = next;
     }
 
     public long getCont() {
@@ -77,27 +74,6 @@ public class Node<T extends Comparable<T>> {
     public String getText(){
         return this.value.toString()+" {lvl: "+this.level+", repet: "+this.cont+"}";
     }
-    public int getBf() {
-        return bf;
-    }
+    
 
-    public void setBf(int bf) {
-        this.bf = bf;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
 }

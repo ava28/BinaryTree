@@ -31,11 +31,11 @@ public class TreePrinter<T extends Comparable<T>> {
                     line.add(aa);
                     if (aa.length() > widest) widest = aa.length();
 
-                    next.add(n.getLeft());
-                    next.add(n.getRight());
+                    next.add(n.getBack());
+                    next.add(n.getNext());
 
-                    if (n.getLeft()!= null) nn++;
-                    if (n.getRight()!= null) nn++;
+                    if (n.getBack() != null) nn++;
+                    if (n.getNext()!= null) nn++;
                 }
             }
 
