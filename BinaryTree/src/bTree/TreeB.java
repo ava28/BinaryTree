@@ -193,7 +193,7 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
                 System.gc();
                 return true;
             }
-            if (node.getLeft()== null && node.getRight()== null) { //soy un nodo sin hijos
+            if (node.getLeft()== null && node.getRight()== null) { 
                 if (node.getValue().compareTo(father.getValue()) > 0) {
                     father.setRight(null);
                 } else {
