@@ -35,7 +35,6 @@ public class Main {
         System.out.println("El mayor es: "+btree.bigger());
         System.out.println("El menor es: "+btree.minor());
         System.out.println("El ancho es: "+btree.width());
-
         System.exit(0);
     }
 }
