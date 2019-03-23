@@ -35,7 +35,7 @@ public class Main {
         System.out.println(btree.beetwen(1,4));
         System.out.println(btree.beetwen(4, 10));
         System.out.println("Height"+btree.height());
-        btree.breadthFirstTraversal(); //Impresión por nivel
+        
 
         System.exit(0);
     }
