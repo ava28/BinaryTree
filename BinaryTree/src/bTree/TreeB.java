@@ -29,12 +29,15 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
         } else {
             if (root.getValue() == null) {
                 root.setValue(value);
+                
                 return true;
+                
             } else {
                 if (add(root, value, root.getLevel()) != null) {
                     return true;
                 } else {
                     return false;
+                    
                 }
             }
         }
@@ -271,14 +274,17 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
     @Override
     public Node<T> minor(Node<T> node) throws IsEmptyException {
         if (node.getLeft()== null) {
+            
             return node;
         } else {
+            
             return minor(node.getLeft());
         }
     }
     public void printLevel() throws IsEmptyException {
         long h = height();
         for (int i = 1; i <= h; i++) {
+            
             System.out.print("Lvl " + (i-1) + " : ");
             printLevel(root, i);
             System.out.println();
@@ -289,6 +295,7 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
             return;
         }
         if (level == 1) {
+            nodeCount++;
             System.out.print(node.getValue() + " ");
         } else if (level > 1) {
             printLevel(node.getLeft(), level - 1);
@@ -307,40 +314,8 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
         return TreePrinter.getTreeDisplay(root);
     }
     
-    private void printByLevel()
-    {
-        int h = heightAsc();
-        int i;
-        for (i=1; i<=h; i++) {
-            System.out.print("Nivel " + i + " :");
-            printLevel(root, i);
-            System.out.println();
-        }
+    public int width() {
+        return this.nodeCount;
     }
     
-    public int heightDesc() {
-        return root.getHeight();
-    }
-
-    
-    public int heightAsc() {
-        height = 0;
-        height(root, 1);
-        return height;
-    }
-     private void height(Node<T> reco, int nivel) {
-        if (reco != null) {
-            reco.setLevel(nivel - 1);
-            height(reco.getLeft(), nivel + 1);
-            if (nivel > height) {
-                height = nivel;
-            }
-            reco.setLevel(nivel - 1);
-            height(reco.getRight(), nivel + 1);
-        }
-    }
-     
-    public void breadthFirstTraversal() {
-        printByLevel();
-    }
 }

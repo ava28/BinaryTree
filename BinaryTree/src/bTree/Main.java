@@ -23,19 +23,18 @@ public class Main {
         btree.add(7);
         btree.add(7);
         btree.add(9);
-
         btree.remove(8);
         btree.preOrder();
         btree.inOrder();
         btree.posOrder();
-        
         btree.fill(btree, 5, 0, 10);
         System.out.println(btree);
         btree.printLevel();
         System.out.println(btree.beetwen(1,4));
-        System.out.println(btree.beetwen(4, 10));
-        System.out.println("Height"+btree.height());
-        
+        System.out.println("Altura: "+btree.height());
+        System.out.println("El mayor es: "+btree.bigger());
+        System.out.println("El menor es: "+btree.minor());
+        System.out.println("El ancho es: "+btree.width());
 
         System.exit(0);
     }
