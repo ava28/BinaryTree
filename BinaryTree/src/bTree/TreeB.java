@@ -92,42 +92,24 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
         }
     }
 
-    /**
-     *
-     * @return Retorna el valor mas grande.
-     * @throws IsEmptyException
-     */
     @Override
     public T bigger() throws IsEmptyException {
         return bigger(root);
     }
 
-    /**
-     *
-     * @param node Recive el arbol.
-     * @return
-     */
     private T bigger(Node<T> node) {
         return node.getNext() == null ? node.getValue() : bigger(node.getNext());
     }
 
     private int altura = 0;
 
-    /**
-     *
-     * @return Retorna la altura del arbol.
-     * @throws IsEmptyException
-     */
+    
     @Override
     public int height() throws IsEmptyException {
         heigth(root, 1);
         return altura;
     }
 
-    /**
-     * @param reco Arbol.
-     * @param nivel Empieza en 1.
-     */
     private void heigth(Node reco, int nivel) {
         if (reco != null) {
             heigth(reco.getBack(), nivel + 1);
@@ -138,9 +120,6 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
         }
     }
 
-    /**
-     * @throws IsEmptyException
-     */
     @Override
     public void inOrder() throws IsEmptyException {
         System.out.println("\nIn-Order:");
@@ -155,9 +134,6 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
         }
     }
 
-    /**
-     * @throws IsEmptyException
-     */
     @Override
     public void isEmpty() throws IsEmptyException {
         if (root == null) {
@@ -165,9 +141,6 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
         }
     }
 
-    /**
-     * @throws IsEmptyException
-     */
     @Override
     public void posOrder() throws IsEmptyException {
         System.out.println("\nPos-Order:");
@@ -182,9 +155,6 @@ public class TreeB<T extends Comparable<T>> implements Tree<T> {
         }
     }
 
-    /**
-     * @throws IsEmptyException
-     */
     @Override
     public void preOrder() throws IsEmptyException {
         System.out.println("\nPre-Order:");
